@@ -1,6 +1,22 @@
 .bg-myGray{
     background-color: gray;
+     height: 200px;
 }
+
+.nav-menu{
+     width: 1500px;
+    display:flex;
+    justify-content: right;
+}
+
+
+.nav-link{
+     font-size: 25px;
+     color: white !important;
+ }
+
+
+
 
 
 
