@@ -1,14 +1,17 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
 import {Navbar, Nav} from 'react-bootstrap';
-import logoph from './logoph.png';
+import amalfi from './amalfi.jpg';
+import background from "./bgph.png";
 import './App.css';
 import Navigation from './components/Navbar';
 
+
 function App() {
   return (
-    <div className = "App">
+    <div className="App" style={{backgroundImage: `url(${background})`}}>
 <Navigation/>
+
     </div>
   );
 }
