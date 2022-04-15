@@ -12,7 +12,6 @@ function App() {
     <div className="app-landing" style={{backgroundImage: `url(${bgtest1})` }}>
 <Navigation/>
 <Home/>
-
     </div>
   );
 }
