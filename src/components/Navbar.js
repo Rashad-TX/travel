@@ -1,4 +1,3 @@
-import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
 import {Navbar, Nav} from 'react-bootstrap';
 import logoph from '../logoph.png';
