@@ -6,10 +6,6 @@ import bgtest1 from "./images/bgtest1.jpg";
 import './App.css';
 import Navigation from './components/Navbar';
 import Home from './components/home';
-import { Provider } from 'react-redux';
-import { ConfigureStore } from './redux/configureStore';
-
-const store = ConfigureStore();
 
 const App = () => {
   const [flights, setFlights] = useState([]);
