@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { Breadcrumb, BreadcrumbItem, Button, Label, Col, Row } from 'reactstrap';
-import { Formik } from 'formik';
+import { Formik, Field, Form, MyTextInput } from 'formik';
 import * as Yup from 'yup';
 
-const flightSearch = () => {
+export const FligthFormSearch = () => {
     return (
         <Formik 
             initialValues={{ departureAirport: '', arrivalAirport: '', departureDate: '', returnDate: '' }}
@@ -29,32 +29,37 @@ const flightSearch = () => {
             }}
         >
             <Form>
-                <MyTextInput
+                <Field
                     label="Departure Airport"
                     name="departureAirport"
                     type="text"
                     placeholder="Departure Airport"
                 />
-                <MyTextInput
+                <Field
                     label="Arrival Airport"
                     name="arrivalAirport"
                     type="text"
                     placeholder="Arrival Airport"
                 />
-                <MyTextInput
+                <Field
                     label="Departure Date"
                     name="departureDate"
                     type="date"
                     placeholder="YYYY-MM-DD"
                 />
-                <MyTextInput
+                <Field
                     label="Return Date"
                     name="returnDate"
                     type="date"
                     placeholder="YYYY-MM-DD"
                 />
+                 <Field name="color" as="select">
+                    <option value="red">Red</option>
+                    <option value="green">Green</option>
+                    <option value="blue">Blue</option>
+                </Field>
             </Form>
-
         </Formik>
     )
 }
+
