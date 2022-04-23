@@ -6,8 +6,8 @@ function Home() {
 
     return(
         <div className ="home-body">
-            <Button className ="my-btn">Let's Go!</Button>
-            {/* <FligthFormSearch /> */}
+            {/* <Button className ="my-btn">Let's Go!</Button> */}
+            <FligthFormSearch />
         </div>
     )
 }
