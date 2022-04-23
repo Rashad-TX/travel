@@ -3,6 +3,15 @@ import { Form, Input, FormGroup, FormText, Label, Col, Row, Card, Button } from 
 import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
 
+// Application Screen || Define Imports
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+import airports from "../api/airports.json";
+
+
+// Application Screen || Define Exports
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 export const FligthFormSearch = () => {
 
     const getInitialValues = () => {
@@ -30,7 +39,7 @@ export const FligthFormSearch = () => {
     })
 
     const onFormikSubmission = async (values, setSubmitting) => {
-        console.log(values);
+        console.log(airports);
     }
 
 
