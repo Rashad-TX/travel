@@ -5,6 +5,8 @@ import bgtest1 from "./images/bgtest1.jpg";
 import './App.css';
 import Navigation from './components/Navbar';
 import Home from './components/home';
+import axios from 'axios';
+
 
 
 function App() {
