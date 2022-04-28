@@ -9,7 +9,7 @@ export const FligthFormSearch = () => {
   const getInitialValues = () => {
     return {
       airportDeparture: '',
-      airportDestination: 'LGA'
+      airportDestination: ''
     }
   }
   const getFormikValidation = () => Yup.object().shape({
@@ -30,12 +30,22 @@ export const FligthFormSearch = () => {
   const onFormikSubmission = async (values, setSubmitting) => {
     console.log(toDestination);
   }
-  const airportSelector = (e, setFieldValue, target) => {
+  const airportDepartureSelector = (e, setFieldValue, target) => {
     let matchingAirports = airports.filter(airport => {
       if (airport.name.includes(e.target.value)) return airport
       if (airport.code.includes(e.target.value)) return airport
     })
     setToDestination(matchingAirports)
+    // e.target.value
+    setFieldValue(target, e.target.value)
+  }
+
+  const airportDestinationSelector = (e, setFieldValue, target) => {
+    let matchingAirports = airports.filter(airport => {
+      if (airport.name.includes(e.target.value)) return airport
+      if (airport.code.includes(e.target.value)) return airport
+    })
+    setFromDestination(matchingAirports)
     // e.target.value
     setFieldValue(target, e.target.value)
   }
@@ -57,7 +67,7 @@ export const FligthFormSearch = () => {
                 id="airportDeparture"
                 name="airportDeparture"
                 placeholder="Select an Airport"
-                onChange={(e) => airportSelector(e, setFieldValue, "airportDeparture")}
+                onChange={(e) => airportDepartureSelector(e, setFieldValue, "airportDeparture")}
                 value={values.airportDeparture}
               />
               {errors.airportDeparture && touched.airportDeparture ? (
@@ -83,12 +93,20 @@ export const FligthFormSearch = () => {
                 id="airportDestination"
                 name="airportDestination"
                 placeholder="Select an Airport"
-                onChange={handleChange('airportDestination')}
+                onChange={(e) => airportDestinationSelector(e, setFieldValue, "airportDestination")}
                 value={values.airportDestination}
               />
               {errors.airportDestination && touched.airportDestination ? (
                 <div style={{color:"red", marginTop:5}}>
                   {errors.airportDestination}
+                </div>
+              ): null}
+              {fromDestination && values.airportDestination.length > 0 ? (
+                <div style={{marginTop:5}}>
+                  {fromDestination.slice(0, 3).map((airport, index) => { return (
+                      <div key={index} style={{cursor:"pointer"}} onClick={() => setFieldValue("airportDestination", airport.code)}>{airport.name}</div>
+                    )}
+                  )}
                 </div>
               ): null}
             </FormGroup>
