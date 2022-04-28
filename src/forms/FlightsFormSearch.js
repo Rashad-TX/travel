@@ -49,6 +49,7 @@ export const FligthFormSearch = () => {
     // e.target.value
     setFieldValue(target, e.target.value)
   }
+  
   return (
     <Card style={{ padding: "20px" }}>
       <Formik
@@ -71,18 +72,20 @@ export const FligthFormSearch = () => {
                 value={values.airportDeparture}
               />
               {errors.airportDeparture && touched.airportDeparture ? (
-                <div style={{color:"red", marginTop:5}}>
+                <div style={{ color: "red", marginTop: 5 }}>
                   {errors.airportDeparture}
                 </div>
-              ): null}
+              ) : null}
               {toDestination && values.airportDeparture.length > 0 ? (
-                <div style={{marginTop:5}}>
-                  {toDestination.slice(0, 3).map((airport, index) => { return (
-                      <div key={index} style={{cursor:"pointer"}} onClick={() => setFieldValue("airportDeparture", airport.code)}>{airport.name}</div>
-                    )}
+                <div style={{ marginTop: 5 }}>
+                  {toDestination.slice(0, 3).map((airport, index) => {
+                    return (
+                      <div key={index} style={{ cursor: "pointer" }} onClick={() => setFieldValue("airportDeparture", airport.code)}>{airport.name}</div>
+                    )
+                  }
                   )}
                 </div>
-              ): null}
+              ) : null}
             </FormGroup>
             <FormGroup>
               <Label for="airportDestination">
@@ -97,31 +100,33 @@ export const FligthFormSearch = () => {
                 value={values.airportDestination}
               />
               {errors.airportDestination && touched.airportDestination ? (
-                <div style={{color:"red", marginTop:5}}>
+                <div style={{ color: "red", marginTop: 5 }}>
                   {errors.airportDestination}
                 </div>
-              ): null}
+              ) : null}
               {fromDestination && values.airportDestination.length > 0 ? (
-                <div style={{marginTop:5}}>
-                  {fromDestination.slice(0, 3).map((airport, index) => { return (
-                      <div key={index} style={{cursor:"pointer"}} onClick={() => setFieldValue("airportDestination", airport.code)}>{airport.name}</div>
-                    )}
+                <div style={{ marginTop: 5 }}>
+                  {fromDestination.slice(0, 3).map((airport, index) => {
+                    return (
+                      <div key={index} style={{ cursor: "pointer" }} onClick={() => setFieldValue("airportDestination", airport.code)}>{airport.name}</div>
+                    )
+                  }
                   )}
                 </div>
-              ): null}
+              ) : null}
+            </FormGroup>
+            <FormGroup>
+              <Label for="departureDate">
+                Departure Date
+              </Label>
+              <Input type="text" name="airportArrivals" id="airportArrivals" placeholder="Select an Airport" />
             </FormGroup>
             {/* <FormGroup>
-                            <Label for="airportArrivals">
-                                Airport Arrivals
-                            </Label>
-                            <Input type="text" name="airportArrivals" id="airportArrivals" placeholder="Select an Airport" />
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="airportArrivals">
-                                Airport Arrivals
-                            </Label>
-                            <Input type="text" name="airportArrivals" id="airportArrivals" placeholder="Select an Airport" />
-                        </FormGroup> */}
+                    <Label for="airportArrivals">
+                        Airport Arrivals
+                    </Label>
+                    <Input type="text" name="airportArrivals" id="airportArrivals" placeholder="Select an Airport" />
+                </FormGroup> */}
             <Button color="primary" onClick={() => handleSubmit()}>
               Submit
             </Button>
