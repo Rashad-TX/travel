@@ -34,7 +34,7 @@ export const FligthFormSearch = () => {
   const onFormikSubmission = async (values, setSubmitting) => {
     console.log(toDestination);
   }
-
+// need to fix to not be case sensitive 
   const airportDepartureSelector = (e, setFieldValue, target) => {
     let matchingAirports = airports.filter(airport => {
       if (airport.name.includes(e.target.value)) return airport
@@ -145,6 +145,7 @@ export const FligthFormSearch = () => {
                 onChange={handleDepartureDate}
                 placeholderText="MM/DD/YYYY"
               />
+              {/* Need to write error message */}
             </FormGroup>
             <FormGroup>
               <Label for="returnDate">
@@ -156,6 +157,8 @@ export const FligthFormSearch = () => {
                 onChange={handleReturnDate}
                 placeholderText="MM/DD/YYYY"
               />
+               {/* Need to write error message 
+               Need to write handleSubmit to useForm to call API */}
             </FormGroup>
             <Button color="primary" onClick={() => handleSubmit()}>
               Submit
