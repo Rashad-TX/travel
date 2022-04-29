@@ -13,18 +13,16 @@ export const FligthFormSearch = () => {
   const getInitialValues = () => {
     return {
       airportDeparture: '',
-      airportDestination: ''
+      airportDestination: '',
+      departureDate: '',
+      returnDate: ''
     }
   }
 
   const getFormikValidation = () => Yup.object().shape({
     airportDeparture: Yup.string()
-      // .max(4, 'Must be the 3-4 letter airport code')
-      // .min(3, 'Must be the 3-4 letter airport code')
       .required('Required'),
     airportDestination: Yup.string()
-      // .max(4, 'Must be the 3-4 letter airport code')
-      // .min(3, 'Must be the 3-4 letter airport code')
       .required('Required'),
     // departureDate: Yup.date()
     // .required('Required'),
@@ -145,6 +143,7 @@ export const FligthFormSearch = () => {
                 selected={departureDate}
                 minDate={new Date()}
                 onChange={handleDepartureDate}
+                placeholderText="MM/DD/YYYY"
               />
             </FormGroup>
             <FormGroup>
@@ -155,6 +154,7 @@ export const FligthFormSearch = () => {
                 selected={returnDate}
                 minDate={departureDate}
                 onChange={handleReturnDate}
+                placeholderText="MM/DD/YYYY"
               />
             </FormGroup>
             <Button color="primary" onClick={() => handleSubmit()}>
