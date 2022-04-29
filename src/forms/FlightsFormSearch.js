@@ -1,8 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Input, FormGroup, FormText, Label, Col, Row, Card, Button } from 'reactstrap';
-import { Formik, Field } from 'formik';
+import { Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css'
+
 import airports from "../api/airports.json"
+
 export const FligthFormSearch = () => {
   const [toDestination, setToDestination] = React.useState(airports)
   const [fromDestination, setFromDestination] = React.useState(airports)
@@ -12,6 +16,7 @@ export const FligthFormSearch = () => {
       airportDestination: ''
     }
   }
+
   const getFormikValidation = () => Yup.object().shape({
     airportDeparture: Yup.string()
       // .max(4, 'Must be the 3-4 letter airport code')
@@ -27,9 +32,11 @@ export const FligthFormSearch = () => {
     // .ref('departureDate', 'Return date must be after departure date.')
     // })
   })
+
   const onFormikSubmission = async (values, setSubmitting) => {
     console.log(toDestination);
   }
+
   const airportDepartureSelector = (e, setFieldValue, target) => {
     let matchingAirports = airports.filter(airport => {
       if (airport.name.includes(e.target.value)) return airport
@@ -49,7 +56,22 @@ export const FligthFormSearch = () => {
     // e.target.value
     setFieldValue(target, e.target.value)
   }
-  
+
+  // define departure and return state
+  const [departureDate, setDepartureDate] = useState(null);
+  const [returnDate, setReturnDate] = useState(null);
+
+  // define handler change function on departure date
+  const handleDepartureDate = (date) => {
+    setDepartureDate(date);
+    setReturnDate(null);
+  };
+
+  // define handler change function on return date
+  const handleReturnDate = (date) => {
+    setReturnDate(date);
+  };
+
   return (
     <Card style={{ padding: "20px" }}>
       <Formik
@@ -119,14 +141,22 @@ export const FligthFormSearch = () => {
               <Label for="departureDate">
                 Departure Date
               </Label>
-              <Input type="text" name="airportArrivals" id="airportArrivals" placeholder="Select an Airport" />
+              <DatePicker
+                selected={departureDate}
+                minDate={new Date()}
+                onChange={handleDepartureDate}
+              />
             </FormGroup>
-            {/* <FormGroup>
-                    <Label for="airportArrivals">
-                        Airport Arrivals
-                    </Label>
-                    <Input type="text" name="airportArrivals" id="airportArrivals" placeholder="Select an Airport" />
-                </FormGroup> */}
+            <FormGroup>
+              <Label for="returnDate">
+                Return Date
+              </Label>
+              <DatePicker
+                selected={returnDate}
+                minDate={departureDate}
+                onChange={handleReturnDate}
+              />
+            </FormGroup>
             <Button color="primary" onClick={() => handleSubmit()}>
               Submit
             </Button>
