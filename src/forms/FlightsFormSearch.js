@@ -37,8 +37,8 @@ export const FligthFormSearch = () => {
 // need to fix to not be case sensitive 
   const airportDepartureSelector = (e, setFieldValue, target) => {
     let matchingAirports = airports.filter(airport => {
-      if (airport.name.includes(e.target.value)) return airport
-      if (airport.code.includes(e.target.value)) return airport
+      if (airport.name.toLowerCase().includes(e.target.value.toLowerCase())) return airport
+      if (airport.code.toLowerCase().includes(e.target.value.toLowerCase())) return airport
     })
     setToDestination(matchingAirports)
     // e.target.value
@@ -47,8 +47,8 @@ export const FligthFormSearch = () => {
 
   const airportDestinationSelector = (e, setFieldValue, target) => {
     let matchingAirports = airports.filter(airport => {
-      if (airport.name.includes(e.target.value)) return airport
-      if (airport.code.includes(e.target.value)) return airport
+      if (airport.name.toLowerCase().includes(e.target.value.toLowerCase())) return airport
+      if (airport.code.toLowerCase().includes(e.target.value.toLowerCase())) return airport
     })
     setFromDestination(matchingAirports)
     // e.target.value
