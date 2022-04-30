@@ -6,6 +6,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css'
 
 import airports from "../api/airports.json"
+import { getFlightsData } from "../api/Flights";
 
 export const FligthFormSearch = () => {
   const [toDestination, setToDestination] = React.useState(airports)
@@ -32,9 +33,10 @@ export const FligthFormSearch = () => {
   })
 
   const onFormikSubmission = async (values, setSubmitting) => {
-    console.log(toDestination);
+    let response = await getFlightsData(values);
+    console.log(response);
   }
-// need to fix to not be case sensitive 
+  // need to fix to not be case sensitive 
   const airportDepartureSelector = (e, setFieldValue, target) => {
     let matchingAirports = airports.filter(airport => {
       if (airport.name.toLowerCase().includes(e.target.value.toLowerCase())) return airport
@@ -157,7 +159,7 @@ export const FligthFormSearch = () => {
                 onChange={handleReturnDate}
                 placeholderText="MM/DD/YYYY"
               />
-               {/* Need to write error message 
+              {/* Need to write error message 
                Need to write handleSubmit to useForm to call API */}
             </FormGroup>
             <Button color="primary" onClick={() => handleSubmit()}>
