@@ -5,18 +5,19 @@ const URL = 'https://travelpayouts-travelpayouts-flight-data-v1.p.rapidapi.com/v
 export const getFlightsData = async (flightData) => {
   console.log(flightData.airportDeparture);
   console.log(flightData.airportDestination);
-  console.log(flightData)
+  console.log(flightData.departureDate);
+  console.log(flightData.returnDate);
 
   try {
-    if (flightData.airportDestination && flightData.airportDeparture) {
+    if (flightData.airportDestination && flightData.airportDeparture && flightData.departureDate && flightData.returnDate)  {
       let options = {
         params: {
           calendar_type: 'departure_date', // equal to either departuredate or returndate, REQUIRED
           destination: flightData.airportDestination, //airport code of destination city, REQUIRED
           origin: flightData.airportDeparture, //airport code of departure city, REQUIRED
-          depart_date: '2022-06-01', //date of departure, YYYY-MM-DD REQUIRED
+          depart_date: flightData.departureDate, //date of departure, YYYY-MM-DD REQUIRED
           currency: 'USD', //currency, OPTIONAL
-          return_date: '2022-06-09', // date of return, YYYY-MM-DD OPTIONAL (one way trips)
+          return_date: flightData.returnDate, // date of return, YYYY-MM-DD OPTIONAL (one way trips)
         },
         headers: {
           'X-Access-Token': '6ab8e3534d1ef1993954320904772632', //created project at travelpayouts.com (free)

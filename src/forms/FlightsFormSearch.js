@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Form, Input, FormGroup, FormText, Label, Col, Row, Card, Button } from 'reactstrap';
-import { Formik, Field, ErrorMessage } from 'formik';
+import { Formik, Field, ErrorMessage, useFormikContext } from 'formik';
 import * as Yup from 'yup';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css'
@@ -36,7 +36,7 @@ export const FligthFormSearch = () => {
     let response = await getFlightsData(values);
     console.log(response);
   }
-  // need to fix to not be case sensitive 
+  
   const airportDepartureSelector = (e, setFieldValue, target) => {
     let matchingAirports = airports.filter(airport => {
       if (airport.name.toLowerCase().includes(e.target.value.toLowerCase())) return airport
@@ -141,12 +141,22 @@ export const FligthFormSearch = () => {
               <Label for="departureDate">
                 Departure Date
               </Label>
-              <DatePicker
-                selected={departureDate}
-                minDate={new Date()}
-                onChange={handleDepartureDate}
-                placeholderText="MM/DD/YYYY"
-              />
+              <Input
+                type="date"
+                id="departureDate"
+                name="departureDate"
+                onChange={setFieldValue}
+                value={values.departureDate}
+              >
+                {/* <DatePicker
+                  selected={departureDate}
+                  minDate={new Date()}
+                  onChange={handleDepartureDate}
+                  dateFormat="yyyy/MM/dd"
+                  placeholderText="YYYY/MM/DD"
+                  value={values.departureDate}
+                /> */}
+              </Input>
               {/* Need to write error message */}
             </FormGroup>
             <FormGroup>
@@ -157,10 +167,11 @@ export const FligthFormSearch = () => {
                 selected={returnDate}
                 minDate={departureDate}
                 onChange={handleReturnDate}
-                placeholderText="MM/DD/YYYY"
+                dateFormat="yyyy/MM/dd"
+                placeholderText="YYYY/MM/DD"
+                value={values.returnDate}
               />
-              {/* Need to write error message 
-               Need to write handleSubmit to useForm to call API */}
+              {/* Need to write error message */}
             </FormGroup>
             <Button color="primary" onClick={() => handleSubmit()}>
               Submit
