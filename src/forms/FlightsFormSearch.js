@@ -1,25 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Input, FormGroup, FormText, Label, Col, Row, Card, Button } from 'reactstrap';
-import { Formik, Field } from 'formik';
+import { Formik, Field, ErrorMessage, useFormikContext } from 'formik';
 import * as Yup from 'yup';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css'
+
 import airports from "../api/airports.json"
+import { getFlightsData } from "../api/Flights";
+
 export const FligthFormSearch = () => {
   const [toDestination, setToDestination] = React.useState(airports)
   const [fromDestination, setFromDestination] = React.useState(airports)
   const getInitialValues = () => {
     return {
       airportDeparture: '',
-      airportDestination: ''
+      airportDestination: '',
+      departureDate: '',
+      returnDate: ''
     }
   }
+
   const getFormikValidation = () => Yup.object().shape({
     airportDeparture: Yup.string()
-      // .max(4, 'Must be the 3-4 letter airport code')
-      // .min(3, 'Must be the 3-4 letter airport code')
       .required('Required'),
     airportDestination: Yup.string()
-      // .max(4, 'Must be the 3-4 letter airport code')
-      // .min(3, 'Must be the 3-4 letter airport code')
       .required('Required'),
     // departureDate: Yup.date()
     // .required('Required'),
@@ -27,13 +31,16 @@ export const FligthFormSearch = () => {
     // .ref('departureDate', 'Return date must be after departure date.')
     // })
   })
+
   const onFormikSubmission = async (values, setSubmitting) => {
-    console.log(toDestination);
+    let response = await getFlightsData(values);
+    console.log(response);
   }
+  
   const airportDepartureSelector = (e, setFieldValue, target) => {
     let matchingAirports = airports.filter(airport => {
-      if (airport.name.includes(e.target.value)) return airport
-      if (airport.code.includes(e.target.value)) return airport
+      if (airport.name.toLowerCase().includes(e.target.value.toLowerCase())) return airport
+      if (airport.code.toLowerCase().includes(e.target.value.toLowerCase())) return airport
     })
     setToDestination(matchingAirports)
     // e.target.value
@@ -42,14 +49,29 @@ export const FligthFormSearch = () => {
 
   const airportDestinationSelector = (e, setFieldValue, target) => {
     let matchingAirports = airports.filter(airport => {
-      if (airport.name.includes(e.target.value)) return airport
-      if (airport.code.includes(e.target.value)) return airport
+      if (airport.name.toLowerCase().includes(e.target.value.toLowerCase())) return airport
+      if (airport.code.toLowerCase().includes(e.target.value.toLowerCase())) return airport
     })
     setFromDestination(matchingAirports)
     // e.target.value
     setFieldValue(target, e.target.value)
   }
-  
+
+  // define departure and return state
+  const [departureDate, setDepartureDate] = useState(null);
+  const [returnDate, setReturnDate] = useState(null);
+
+  // define handler change function on departure date
+  const handleDepartureDate = (date) => {
+    setDepartureDate(date);
+    setReturnDate(null);
+  };
+
+  // define handler change function on return date
+  const handleReturnDate = (date) => {
+    setReturnDate(date);
+  };
+
   return (
     <Card style={{ padding: "20px" }}>
       <Formik
@@ -119,14 +141,38 @@ export const FligthFormSearch = () => {
               <Label for="departureDate">
                 Departure Date
               </Label>
-              <Input type="text" name="airportArrivals" id="airportArrivals" placeholder="Select an Airport" />
+              <Input
+                type="date"
+                id="departureDate"
+                name="departureDate"
+                onChange={setFieldValue}
+                value={values.departureDate}
+              >
+                {/* <DatePicker
+                  selected={departureDate}
+                  minDate={new Date()}
+                  onChange={handleDepartureDate}
+                  dateFormat="yyyy/MM/dd"
+                  placeholderText="YYYY/MM/DD"
+                  value={values.departureDate}
+                /> */}
+              </Input>
+              {/* Need to write error message */}
             </FormGroup>
-            {/* <FormGroup>
-                    <Label for="airportArrivals">
-                        Airport Arrivals
-                    </Label>
-                    <Input type="text" name="airportArrivals" id="airportArrivals" placeholder="Select an Airport" />
-                </FormGroup> */}
+            <FormGroup>
+              <Label for="returnDate">
+                Return Date
+              </Label>
+              <DatePicker
+                selected={returnDate}
+                minDate={departureDate}
+                onChange={handleReturnDate}
+                dateFormat="yyyy/MM/dd"
+                placeholderText="YYYY/MM/DD"
+                value={values.returnDate}
+              />
+              {/* Need to write error message */}
+            </FormGroup>
             <Button color="primary" onClick={() => handleSubmit()}>
               Submit
             </Button>
